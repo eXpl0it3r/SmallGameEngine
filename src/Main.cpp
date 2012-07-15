@@ -7,7 +7,7 @@ int main ()
 	GameEngine game( "Engine Test v1.0" );
 
 	// load the intro
-	game.ChangeState( std::move( IntroState::Instance() ) );
+	game.ChangeState( game.Build<IntroState>() );
 
 	// main loop
 	while ( game.Running() )

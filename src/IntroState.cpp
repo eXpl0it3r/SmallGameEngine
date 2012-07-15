@@ -49,7 +49,7 @@ void IntroState::HandleEvents(GameEngine& game)
 				switch (event.key.code )
 				{
 					case sf::Keyboard::Space:
-						game.ChangeState( std::move(PlayState::Instance()) );
+						game.ChangeState( game.Build<PlayState>() );
 						break;
 
 					case sf::Keyboard::Escape:

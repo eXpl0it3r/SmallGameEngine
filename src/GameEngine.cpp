@@ -3,6 +3,10 @@
 #include <iostream>
 #include "GameState.hpp"
 
+#include "IntroState.hpp"
+#include "MenuState.hpp"
+#include "GameState.hpp"
+
 GameEngine::GameEngine(const std::string& title, const unsigned int width, const unsigned int height, const unsigned int bpp, const bool fullscreen) :
 	m_fullscreen(fullscreen)
 {

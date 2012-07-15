@@ -20,11 +20,6 @@ public:
 	void Update(GameEngine& game);
 	void Draw(GameEngine& game);
 
-	static std::unique_ptr<MenuState> Instance()
-	{
-		return std::move(std::unique_ptr<MenuState>(new MenuState));
-	}
-
 private:
 
 	sf::Texture bgTex;

@@ -46,7 +46,7 @@ void PlayState::HandleEvents(GameEngine& game)
 						game.Quit();
 						break;
 					case sf::Keyboard::M:
-						game.PushState( MenuState::Instance() );
+						game.PushState( game.Build<MenuState>() );
 						break;
 				}
 				break;

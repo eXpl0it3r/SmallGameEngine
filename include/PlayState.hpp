@@ -20,11 +20,6 @@ public:
 	void Update(GameEngine& game);
 	void Draw(GameEngine& game);
 
-	static std::unique_ptr<PlayState> Instance()
-	{
-		return std::move(std::unique_ptr<PlayState>(new PlayState));
-	}
-
 private:
 	sf::Texture bgTex;
 	sf::Sprite bg;

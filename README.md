@@ -12,3 +12,4 @@ Although I don't own the rights on the sourcecode the engine is based on I'll re
 Credits
 ===============
 A big thanks for [the tutorial](http://gamedevgeek.com/tutorials/managing-game-states-in-c/) in the first place goes out to [Anthony Lewis](http://anthonylewis.com/about/), make sure to checkout his [development blog](http://gamedevgeek.com/) and his [personal blog](http://anthonylewis.com/).
+Thanks to [kurayama](http://en.sfml-dev.org/forums/index.php?action=profile;u=2646) for the suggestion on using a template based Build() function rather than the Instance() functions embedded in every state class.

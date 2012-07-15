@@ -25,6 +25,9 @@ public:
 	bool Running() { return m_running; }
 	void Quit() { m_running = false; }
 
+	template <typename T>
+	std::unique_ptr<T> Build();
+
 	sf::RenderWindow screen;
 
 private:
@@ -34,5 +37,11 @@ private:
 	bool m_running;
 	bool m_fullscreen;
 };
+
+template <typename T>
+std::unique_ptr<T> GameEngine::Build()
+{
+	return std::move(std::unique_ptr<T>(new T));
+}
 
 #endif // GAMEENGINE_HPP

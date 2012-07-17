@@ -12,11 +12,10 @@ class GameState;
 class GameEngine
 {
 public:
-	GameEngine(const std::string& title, const unsigned int width = 640, const unsigned int height = 480, const unsigned int bpp = 32, const bool fullscreen = false);
+	GameEngine( std::unique_ptr<GameState> state, const std::string& title, const unsigned int width = 640, const unsigned int height = 480, const unsigned int bpp = 32, const bool fullscreen = false );
 
-	void ChangeState(std::unique_ptr<GameState> state);
-	void PushState(std::unique_ptr<GameState> state);
-	void PopState();
+	void NextState();
+	void LastState();
 
 	void HandleEvents();
 	void Update();
@@ -26,7 +25,7 @@ public:
 	void Quit() { m_running = false; }
 
 	template <typename T>
-	std::unique_ptr<T> Build();
+	std::unique_ptr<T> Build( bool replace = true );
 
 	sf::RenderWindow screen;
 
@@ -39,9 +38,9 @@ private:
 };
 
 template <typename T>
-std::unique_ptr<T> GameEngine::Build()
+std::unique_ptr<T> GameEngine::Build( bool replace )
 {
-	return std::move(std::unique_ptr<T>(new T));
+	return std::move( std::unique_ptr<T>( new T( replace ) ) );
 }
 
 #endif // GAMEENGINE_HPP

@@ -4,19 +4,18 @@
 int main ()
 {
 	// initialize the engine
-	GameEngine game( "Engine Test v1.0" );
-
-	// load the intro
-	game.ChangeState( game.Build<IntroState>() );
+	GameEngine game( game.Build<IntroState>(), "Engine Test v1.1" );
 
 	// main loop
-	while ( game.Running() )
+	while( game.Running() )
 	{
+		game.NextState();
 		game.HandleEvents();
 		game.Update();
 		game.Draw();
 	}
 
-	// Leaving the scope of 'game' will cleanup the engine
+	// leaving the scope of 'game' will cleanup the engine
     return 0;
 }
+

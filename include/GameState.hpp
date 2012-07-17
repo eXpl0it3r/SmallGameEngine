@@ -2,24 +2,38 @@
 #define GAMESTATE_HPP
 
 #include <memory>
+
 #include "GameEngine.hpp"
 
 class GameState
 {
 public:
-	//virtual ~GameState() = 0;
-
+	GameState( bool replace = true ) : replacing( replace ) {}
 	virtual void Pause() = 0;
 	virtual void Resume() = 0;
 
-	virtual void HandleEvents(GameEngine& game) = 0;
-	virtual void Update(GameEngine& game) = 0;
-	virtual void Draw(GameEngine& game) = 0;
+	virtual void HandleEvents( GameEngine& game ) = 0;
+	virtual void Update( GameEngine& game ) = 0;
+	virtual void Draw( GameEngine& game ) = 0;
 
-	void ChangeState(GameEngine& game, std::unique_ptr<GameState> state)
+	std::unique_ptr<GameState> Next()
 	{
-		game.ChangeState(std::move(state));
+		return std::move( next );
 	}
+
+	void ChangeState( GameEngine& game, std::unique_ptr<GameState> state )
+	{
+		game.ChangeState( std::move( state ) );
+	}
+
+	bool isReplacing()
+	{
+		return replacing;
+	}
+
+private:
+	bool replacing;
+	std::unique_ptr<GameState> next;
 };
 
 #endif // GAMESTATE_HPP

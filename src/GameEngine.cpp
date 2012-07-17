@@ -1,5 +1,6 @@
 #include "GameEngine.hpp"
 
+#include <memory>
 #include <iostream>
 #include "GameState.hpp"
 
@@ -7,49 +8,50 @@
 #include "MenuState.hpp"
 #include "GameState.hpp"
 
-GameEngine::GameEngine(const std::string& title, const unsigned int width, const unsigned int height, const unsigned int bpp, const bool fullscreen) :
-	m_fullscreen(fullscreen)
+GameEngine::GameEngine( std::unique_ptr<GameState> state, const std::string& title, const unsigned int width, const unsigned int height, const unsigned int bpp, const bool fullscreen ) :
+	m_fullscreen( fullscreen )
 {
 	int flags = 0;
 
-	if(fullscreen)
+	if( fullscreen )
 		flags = sf::Style::Fullscreen;
 	else
 		flags = sf::Style::Default;
 
 	// Create render window
-	screen.create(sf::VideoMode(width, height, bpp), title, flags);
-	screen.setFramerateLimit(30);
+	screen.create( sf::VideoMode( width, height, bpp ), title, flags );
+	screen.setFramerateLimit( 30 );
 
 	m_running = true;
+	
+	states.push( std::move( state ) );
 
 	std::cout << "GameEngine Init" << std::endl;
 }
 
-void GameEngine::ChangeState(std::unique_ptr<GameState> state) 
+void GameEngine::NextState() 
 {
-	// cleanup the current state
+	// there needs to be a state
 	if ( !states.empty() )
 	{
-		states.pop();
-	}
+		std::unique_ptr<GameState> temp = stack.top()->Next();
 
-	// store and init the new state
-	states.push(std::move(state));
+		// only change states if there's a next one existing
+		if( temp != nullptr )
+		{
+			// replace the running state
+			if( temp->isReplacing() )
+				states.pop();
+			// pause the running state
+			else
+				states.top()->Pause();
+			
+			states.push( std::move( temp ) );
+		}
+	}
 }
 
-void GameEngine::PushState(std::unique_ptr<GameState> state)
-{
-	// pause current state
-	if ( !states.empty() ) {
-		states.top()->Pause();
-	}
-
-	// store and init the new state
-	states.push(std::move(state));
-}
-
-void GameEngine::PopState()
+void GameEngine::LastState()
 {
 	// cleanup the current state
 	if ( !states.empty() )
@@ -67,17 +69,18 @@ void GameEngine::PopState()
 void GameEngine::HandleEvents() 
 {
 	// let the state handle events
-	states.top()->HandleEvents(*this);
+	states.top()->HandleEvents( *this );
 }
 
 void GameEngine::Update() 
 {
 	// let the state update the game
-	states.top()->Update(*this);
+	states.top()->Update( *this );
 }
 
 void GameEngine::Draw() 
 {
 	// let the state draw the screen
-	states.top()->Draw(*this);
+	states.top()->Draw( *this );
 }
+

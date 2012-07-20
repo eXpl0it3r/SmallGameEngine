@@ -1,0 +1,27 @@
+# Visual Studio
+[Xx]64/
+[Dd]ebug*/
+[Rr]elease*/
+ipch/
+*.ipch
+*.obj
+*.tlog
+*.manifest
+*.lastbuildstate
+*.log
+*.idb
+*.pdb
+*.opensdf
+*.sdf
+*.sln
+*.suo
+*.vcxproj
+*.vcxproj.filters
+*.vcxproj.user
+*.exe
+*.ilk
+*.pdb
+
+#OS junk files
+[Tt]humbs.db
+*.DS_Store

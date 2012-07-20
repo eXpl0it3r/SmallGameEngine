@@ -9,6 +9,7 @@
 #include "GameState.hpp"
 
 GameEngine::GameEngine( const std::string& title, const unsigned int width, const unsigned int height, const unsigned int bpp, const bool fullscreen ) :
+	m_running( false ),
 	m_fullscreen( fullscreen )
 {
 	int flags = 0;

@@ -8,7 +8,7 @@
 #include "MenuState.hpp"
 #include "GameState.hpp"
 
-GameEngine::GameEngine( std::unique_ptr<GameState> state, const std::string& title, const unsigned int width, const unsigned int height, const unsigned int bpp, const bool fullscreen ) :
+GameEngine::GameEngine( const std::string& title, const unsigned int width, const unsigned int height, const unsigned int bpp, const bool fullscreen ) :
 	m_fullscreen( fullscreen )
 {
 	int flags = 0;
@@ -22,11 +22,14 @@ GameEngine::GameEngine( std::unique_ptr<GameState> state, const std::string& tit
 	screen.create( sf::VideoMode( width, height, bpp ), title, flags );
 	screen.setFramerateLimit( 30 );
 
+	std::cout << "GameEngine Init" << std::endl;
+}
+
+void GameEngine::Run( std::unique_ptr<GameState> state )
+{
 	m_running = true;
 	
 	states.push( std::move( state ) );
-
-	std::cout << "GameEngine Init" << std::endl;
 }
 
 void GameEngine::NextState() 
@@ -34,7 +37,7 @@ void GameEngine::NextState()
 	// there needs to be a state
 	if ( !states.empty() )
 	{
-		std::unique_ptr<GameState> temp = stack.top()->Next();
+		std::unique_ptr<GameState> temp = states.top()->Next();
 
 		// only change states if there's a next one existing
 		if( temp != nullptr )

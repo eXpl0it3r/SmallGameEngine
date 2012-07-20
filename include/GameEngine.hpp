@@ -12,7 +12,9 @@ class GameState;
 class GameEngine
 {
 public:
-	GameEngine( std::unique_ptr<GameState> state, const std::string& title, const unsigned int width = 640, const unsigned int height = 480, const unsigned int bpp = 32, const bool fullscreen = false );
+	GameEngine( const std::string& title, const unsigned int width = 640, const unsigned int height = 480, const unsigned int bpp = 32, const bool fullscreen = false );
+
+	void Run( std::unique_ptr<GameState> state );
 
 	void NextState();
 	void LastState();

@@ -21,17 +21,17 @@ public:
 		return std::move( next );
 	}
 
-	void ChangeState( GameEngine& game, std::unique_ptr<GameState> state )
+	/*void ChangeState( GameEngine& game, std::unique_ptr<GameState> state )
 	{
 		game.ChangeState( std::move( state ) );
-	}
+	}*/
 
 	bool isReplacing()
 	{
 		return replacing;
 	}
 
-private:
+protected:
 	bool replacing;
 	std::unique_ptr<GameState> next;
 };

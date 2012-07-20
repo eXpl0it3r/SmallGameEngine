@@ -44,7 +44,7 @@ void MenuState::HandleEvents( GameEngine& game )
 				switch( event.key.code )
 				{
 					case sf::Keyboard::Escape:
-						game.PopState();
+						game.LastState();
 						break;
 				}
 				break;

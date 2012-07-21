@@ -7,7 +7,7 @@
 
 IntroState::IntroState( bool replace ) : GameState( replace )
 {
-	bgTex.loadFromFile( "img/intro.bmp" );
+	bgTex.loadFromFile( "img/intro.png" );
 	bg.setTexture( bgTex, true );
 
 	// start off opaque

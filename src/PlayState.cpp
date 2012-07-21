@@ -7,7 +7,7 @@
 
 PlayState::PlayState( bool replace ) : GameState( replace )
 {
-	bgTex.loadFromFile( "img/play.bmp" );
+	bgTex.loadFromFile( "img/play.png" );
 
 	bg.setTexture( bgTex, true );
 

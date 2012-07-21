@@ -6,7 +6,7 @@
 
 MenuState::MenuState( bool replace ) : GameState( replace )
 {
-	bgTex.loadFromFile( "img/menu.bmp" );
+	bgTex.loadFromFile( "img/menu.png" );
 
 	bg.setTexture( bgTex, true );
 

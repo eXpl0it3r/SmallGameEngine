@@ -39,7 +39,7 @@ void IntroState::HandleEvents( GameEngine& game )
 {
 	sf::Event event;
 
-	if( game.screen.pollEvent( event ) )
+	while( game.screen.pollEvent( event ) )
 	{
 		switch( event.type )
 		{
@@ -63,7 +63,7 @@ void IntroState::HandleEvents( GameEngine& game )
 	}
 }
 
-void IntroState::Update( GameEngine& game ) 
+void IntroState::Update( GameEngine& game )
 {
 	if( alpha.a != 0 )
 		alpha.a--;
@@ -71,7 +71,7 @@ void IntroState::Update( GameEngine& game )
 	fader.setFillColor( alpha );
 }
 
-void IntroState::Draw( GameEngine& game ) 
+void IntroState::Draw( GameEngine& game )
 {
 	// Clear the previous drawing
 	game.screen.clear();

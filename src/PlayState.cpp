@@ -33,7 +33,7 @@ void PlayState::HandleEvents( GameEngine& game )
 {
 	sf::Event event;
 
-	if( game.screen.pollEvent( event ) )
+	while( game.screen.pollEvent( event ) )
 	{
 		switch( event.type )
 		{

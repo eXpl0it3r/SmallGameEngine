@@ -32,7 +32,7 @@ void MenuState::HandleEvents( GameEngine& game )
 {
 	sf::Event event;
 
-	if( game.screen.pollEvent( event ) )
+	while( game.screen.pollEvent( event ) )
 	{
 		switch( event.type )
 		{
@@ -52,7 +52,7 @@ void MenuState::HandleEvents( GameEngine& game )
 	}
 }
 
-void MenuState::Update( GameEngine& game ) 
+void MenuState::Update( GameEngine& game )
 {
 
 }

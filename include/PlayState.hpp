@@ -9,19 +9,17 @@ class GameEngine;
 class PlayState : public GameState
 {
 public:
-	PlayState( bool replace = true );
-	~PlayState();
+	PlayState( GameEngine& game, bool replace = true );
 
-	void Pause();
-	void Resume();
+	void pause();
+	void resume();
 
-	void HandleEvents( GameEngine& game );
-	void Update( GameEngine& game );
-	void Draw( GameEngine& game );
+	void update();
+	void draw();
 
 private:
-	sf::Texture bgTex;
-	sf::Sprite bg;
+	sf::Texture m_bgTex;
+	sf::Sprite m_bg;
 };
 
 #endif // PLAYSTATE_HPP

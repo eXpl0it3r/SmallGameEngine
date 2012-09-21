@@ -5,50 +5,45 @@
 #include "MenuState.hpp"
 #include "GameEngine.hpp"
 
-PlayState::PlayState( bool replace ) : GameState( replace )
+PlayState::PlayState( GameEngine& game, bool replace ) : GameState( game, replace )
 {
-	bgTex.loadFromFile( "img/play.png" );
+	m_bgTex.loadFromFile( "img/play.png" );
 
-	bg.setTexture( bgTex, true );
+	m_bg.setTexture( m_bgTex, true );
 
 	std::cout << "PlayState Init" << std::endl;
 }
 
-PlayState::~PlayState()
-{
-	std::cout << "PlayState Cleanup" << std::endl;
-}
-
-void PlayState::Pause()
+void PlayState::pause()
 {
 	std::cout << "PlayState Pause" << std::endl;
 }
 
-void PlayState::Resume()
+void PlayState::resume()
 {
 	std::cout << "PlayState Resume" << std::endl;
 }
 
-void PlayState::HandleEvents( GameEngine& game )
+void PlayState::update()
 {
 	sf::Event event;
 
-	while( game.screen.pollEvent( event ) )
+	while( m_game.screen.pollEvent( event ) )
 	{
 		switch( event.type )
 		{
 			case sf::Event::Closed:
-				game.Quit();
+				m_game.quit();
 				break;
 
 			case sf::Event::KeyPressed:
 				switch( event.key.code )
 				{
 					case sf::Keyboard::Escape:
-						game.Quit();
+						m_game.quit();
 						break;
 					case sf::Keyboard::M:
-						next = game.Build<MenuState>( false );
+						m_next = m_game.build<MenuState>( false );
 						break;
 				}
 				break;
@@ -56,16 +51,11 @@ void PlayState::HandleEvents( GameEngine& game )
 	}
 }
 
-void PlayState::Update( GameEngine& game )
-{
-
-}
-
-void PlayState::Draw( GameEngine& game )
+void PlayState::draw()
 {
 	// Clear the previous drawing
-	game.screen.clear();
-	game.screen.draw( bg );
-	game.screen.display();
+	m_game.screen.clear();
+	m_game.screen.draw( m_bg );
+	m_game.screen.display();
 }
 

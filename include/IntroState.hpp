@@ -9,21 +9,19 @@ class GameEngine;
 class IntroState : public GameState
 {
 public:
-	IntroState( bool replace = true );
-	~IntroState();
+	IntroState( GameEngine& game, bool replace = true );
 
-	void Pause();
-	void Resume();
+	void pause();
+	void resume();
 
-	void HandleEvents( GameEngine& game );
-	void Update( GameEngine& game );
-	void Draw( GameEngine& game );
+	void update();
+	void draw();
 
 private:
-	sf::Texture bgTex;
-	sf::Sprite bg;
-	sf::RectangleShape fader;
-	sf::Color alpha;
+	sf::Texture m_bgTex;
+	sf::Sprite m_bg;
+	sf::RectangleShape m_fader;
+	sf::Color m_alpha;
 };
 
 #endif // INTROSTATE_HPP

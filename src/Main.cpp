@@ -4,16 +4,15 @@
 int main ()
 {
 	// initialize the engine
-	GameEngine game( "Engine Test v1.1" );
-	game.Run( game.Build<IntroState>() );
+	GameEngine game( "Engine Test v2.0" );
+	game.run( game.build<IntroState>( true ) );
 
 	// main loop
-	while( game.Running() )
+	while( game.running() )
 	{
-		game.NextState();
-		game.HandleEvents();
-		game.Update();
-		game.Draw();
+		game.nextState();
+		game.update();
+		game.draw();
 	}
 
 	// leaving the scope of 'game' will cleanup the engine

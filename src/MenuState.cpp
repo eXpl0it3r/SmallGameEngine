@@ -4,47 +4,42 @@
 #include "MenuState.hpp"
 #include "GameEngine.hpp"
 
-MenuState::MenuState( bool replace ) : GameState( replace )
+MenuState::MenuState( GameEngine& game, bool replace ) : GameState( game, replace )
 {
-	bgTex.loadFromFile( "img/menu.png" );
+	m_bgTex.loadFromFile( "img/menu.png" );
 
-	bg.setTexture( bgTex, true );
+	m_bg.setTexture( m_bgTex, true );
 
 	std::cout << "MenuState Init" << std::endl;
 }
 
-MenuState::~MenuState()
-{
-	std::cout << "MenuState Cleanup" << std::endl;
-}
-
-void MenuState::Pause()
+void MenuState::pause()
 {
 	std::cout << "MenuState Pause" << std::endl;
 }
 
-void MenuState::Resume()
+void MenuState::resume()
 {
 	std::cout << "MenuState Resume" << std::endl;
 }
 
-void MenuState::HandleEvents( GameEngine& game )
+void MenuState::update()
 {
 	sf::Event event;
 
-	while( game.screen.pollEvent( event ) )
+	while( m_game.screen.pollEvent( event ) )
 	{
 		switch( event.type )
 		{
 			case sf::Event::Closed:
-				game.Quit();
+				m_game.quit();
 				break;
 
 			case sf::Event::KeyPressed:
 				switch( event.key.code )
 				{
 					case sf::Keyboard::Escape:
-						game.LastState();
+						m_game.lastState();
 						break;
 				}
 				break;
@@ -52,16 +47,11 @@ void MenuState::HandleEvents( GameEngine& game )
 	}
 }
 
-void MenuState::Update( GameEngine& game )
-{
-
-}
-
-void MenuState::Draw( GameEngine& game )
+void MenuState::draw()
 {
 	// Clear the previous drawing
-	game.screen.clear();
-	game.screen.draw( bg );
-	game.screen.display();
+	m_game.screen.clear();
+	m_game.screen.draw( m_bg );
+	m_game.screen.display();
 }
 

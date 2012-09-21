@@ -9,6 +9,7 @@
 #include "GameState.hpp"
 
 GameEngine::GameEngine( const std::string& title, const unsigned int width, const unsigned int height, const unsigned int bpp, const bool fullscreen ) :
+    m_resume( false ),
 	m_running( false ),
 	m_fullscreen( fullscreen )
 {
@@ -26,65 +27,65 @@ GameEngine::GameEngine( const std::string& title, const unsigned int width, cons
 	std::cout << "GameEngine Init" << std::endl;
 }
 
-void GameEngine::Run( std::unique_ptr<GameState> state )
+void GameEngine::run( std::unique_ptr<GameState> state )
 {
 	m_running = true;
-	
-	states.push( std::move( state ) );
+
+	m_states.push( std::move( state ) );
 }
 
-void GameEngine::NextState() 
+void GameEngine::nextState()
 {
+    if(m_resume)
+    {
+        // cleanup the current state
+        if ( !m_states.empty() )
+        {
+            m_states.pop();
+        }
+
+        // resume previous state
+        if ( !m_states.empty() )
+        {
+            m_states.top()->resume();
+        }
+
+        m_resume = false;
+    }
+
 	// there needs to be a state
-	if ( !states.empty() )
+	if ( !m_states.empty() )
 	{
-		std::unique_ptr<GameState> temp = states.top()->Next();
+		std::unique_ptr<GameState> temp = m_states.top()->next();
 
 		// only change states if there's a next one existing
 		if( temp != nullptr )
 		{
 			// replace the running state
 			if( temp->isReplacing() )
-				states.pop();
+				m_states.pop();
 			// pause the running state
 			else
-				states.top()->Pause();
-			
-			states.push( std::move( temp ) );
+				m_states.top()->pause();
+
+			m_states.push( std::move( temp ) );
 		}
 	}
 }
 
-void GameEngine::LastState()
+void GameEngine::lastState()
 {
-	// cleanup the current state
-	if ( !states.empty() )
-	{
-		states.pop();
-	}
-
-	// resume previous state
-	if ( !states.empty() )
-	{
-		states.top()->Resume();
-	}
+    m_resume = true;
 }
 
-void GameEngine::HandleEvents() 
-{
-	// let the state handle events
-	states.top()->HandleEvents( *this );
-}
-
-void GameEngine::Update() 
+void GameEngine::update()
 {
 	// let the state update the game
-	states.top()->Update( *this );
+	m_states.top()->update();
 }
 
-void GameEngine::Draw() 
+void GameEngine::draw()
 {
 	// let the state draw the screen
-	states.top()->Draw( *this );
+	m_states.top()->draw();
 }
-

@@ -8,32 +8,27 @@
 class GameState
 {
 public:
-	GameState( bool replace = true ) : replacing( replace ) {}
-	virtual void Pause() = 0;
-	virtual void Resume() = 0;
+	GameState( GameEngine& game, bool replace = true ) : m_game( game ), m_replacing( replace ) {}
+	virtual void pause() = 0;
+	virtual void resume() = 0;
 
-	virtual void HandleEvents( GameEngine& game ) = 0;
-	virtual void Update( GameEngine& game ) = 0;
-	virtual void Draw( GameEngine& game ) = 0;
+	virtual void update() = 0;
+	virtual void draw() = 0;
 
-	std::unique_ptr<GameState> Next()
+	std::unique_ptr<GameState> next()
 	{
-		return std::move( next );
+		return std::move( m_next );
 	}
-
-	/*void ChangeState( GameEngine& game, std::unique_ptr<GameState> state )
-	{
-		game.ChangeState( std::move( state ) );
-	}*/
 
 	bool isReplacing()
 	{
-		return replacing;
+		return m_replacing;
 	}
 
 protected:
-	bool replacing;
-	std::unique_ptr<GameState> next;
+    GameEngine& m_game;
+	bool m_replacing;
+	std::unique_ptr<GameState> m_next;
 };
 
 #endif // GAMESTATE_HPP

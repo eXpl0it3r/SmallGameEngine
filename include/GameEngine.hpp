@@ -14,35 +14,35 @@ class GameEngine
 public:
 	GameEngine( const std::string& title, const unsigned int width = 640, const unsigned int height = 480, const unsigned int bpp = 32, const bool fullscreen = false );
 
-	void Run( std::unique_ptr<GameState> state );
+	void run( std::unique_ptr<GameState> state );
 
-	void NextState();
-	void LastState();
+	void nextState();
+	void lastState();
 
-	void HandleEvents();
-	void Update();
-	void Draw();
+	void update();
+	void draw();
 
-	bool Running() { return m_running; }
-	void Quit() { m_running = false; }
+	bool running() { return m_running; }
+	void quit() { m_running = false; }
 
 	template <typename T>
-	std::unique_ptr<T> Build( bool replace = true );
+	std::unique_ptr<T> build( bool replace = true );
 
 	sf::RenderWindow screen;
 
 private:
 	// the stack of states
-	std::stack<std::unique_ptr<GameState> > states;
+	std::stack<std::unique_ptr<GameState> > m_states;
+	bool m_resume;
 
 	bool m_running;
 	bool m_fullscreen;
 };
 
 template <typename T>
-std::unique_ptr<T> GameEngine::Build( bool replace )
+std::unique_ptr<T> GameEngine::build( bool replace )
 {
-	return std::move( std::unique_ptr<T>( new T( replace ) ) );
+	return std::move( std::unique_ptr<T>( new T( *this, replace ) ) );
 }
 
 #endif // GAMEENGINE_HPP

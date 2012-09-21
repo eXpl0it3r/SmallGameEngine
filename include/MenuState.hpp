@@ -9,20 +9,18 @@ class GameEngine;
 class MenuState : public GameState
 {
 public:
-	MenuState( bool replace = true );
-	~MenuState();
+	MenuState( GameEngine& game, bool replace = true );
 
-	void Pause();
-	void Resume();
+	void pause();
+	void resume();
 
-	void HandleEvents( GameEngine& game );
-	void Update( GameEngine& game );
-	void Draw( GameEngine& game );
+	void update();
+	void draw();
 
 private:
 
-	sf::Texture bgTex;
-	sf::Sprite bg;
+	sf::Texture m_bgTex;
+	sf::Sprite m_bg;
 };
 
 #endif // MENUSTATE_HPP

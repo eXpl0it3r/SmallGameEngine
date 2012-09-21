@@ -5,83 +5,77 @@
 #include "PlayState.hpp"
 #include "GameEngine.hpp"
 
-IntroState::IntroState( bool replace ) : GameState( replace )
+IntroState::IntroState( GameEngine& game, bool replace ) : GameState( game, replace )
 {
-	bgTex.loadFromFile( "img/intro.png" );
-	bg.setTexture( bgTex, true );
+	m_bgTex.loadFromFile( "img/intro.png" );
+	m_bg.setTexture( m_bgTex, true );
 
 	// start off opaque
-	alpha = sf::Color( 0, 0, 0, 255 );
+	m_alpha = sf::Color( 0, 0, 0, 255 );
 
 	// fill the fader surface with black
-	fader.setFillColor( alpha );
-	fader.setSize( static_cast<sf::Vector2f>( bgTex.getSize() ) );
+	m_fader.setFillColor( m_alpha );
+	m_fader.setSize( static_cast<sf::Vector2f>( m_bgTex.getSize() ) );
 
 	std::cout << "IntroState Init" << std::endl;
 }
 
-IntroState::~IntroState()
-{
-	std::cout << "IntroState Cleanup" << std::endl;
-}
-
-void IntroState::Pause()
+void IntroState::pause()
 {
 	std::cout << "IntroState Pause" << std::endl;
 }
 
-void IntroState::Resume()
+void IntroState::resume()
 {
 	std::cout << "IntroState Resume" << std::endl;
 }
 
-void IntroState::HandleEvents( GameEngine& game )
+void IntroState::update()
 {
-	sf::Event event;
+    sf::Event event;
 
-	while( game.screen.pollEvent( event ) )
+	while( m_game.screen.pollEvent( event ) )
 	{
 		switch( event.type )
 		{
-			case sf::Event::Closed:
-				game.Quit();
-				break;
+            case sf::Event::Closed:
+                m_game.quit();
+                break;
 
-			case sf::Event::KeyPressed:
-				switch( event.key.code )
-				{
-					case sf::Keyboard::Space:
-						next = game.Build<PlayState>( true );
-						break;
+            case sf::Event::KeyPressed:
+            {
+                switch( event.key.code )
+                {
+                    case sf::Keyboard::Space:
+                        m_next = m_game.build<PlayState>( true );
+                        break;
 
-					case sf::Keyboard::Escape:
-						game.Quit();
-						break;
-				}
-				break;
+                    case sf::Keyboard::Escape:
+                        m_game.quit();
+                        break;
+                }
+                break;
+            }
 		}
 	}
+
+	if( m_alpha.a != 0 )
+		m_alpha.a--;
+
+	m_fader.setFillColor( m_alpha );
 }
 
-void IntroState::Update( GameEngine& game )
-{
-	if( alpha.a != 0 )
-		alpha.a--;
-
-	fader.setFillColor( alpha );
-}
-
-void IntroState::Draw( GameEngine& game )
+void IntroState::draw()
 {
 	// Clear the previous drawing
-	game.screen.clear();
+	m_game.screen.clear();
 
-	game.screen.draw( bg );
+	m_game.screen.draw( m_bg );
 
 	// no need to draw if it's transparent
-	if( alpha.a != 0 )
-		game.screen.draw( fader );
+	if( m_alpha.a != 0 )
+		m_game.screen.draw( m_fader );
 
-	game.screen.display();
+	m_game.screen.display();
 }
 

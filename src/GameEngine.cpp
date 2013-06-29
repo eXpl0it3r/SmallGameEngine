@@ -78,14 +78,14 @@ void GameEngine::lastState()
     m_resume = true;
 }
 
-void GameEngine::update()
+void GameEngine::update(sf::Time elapsed)
 {
 	// let the state update the game
-	m_states.top()->update();
+	m_states.top()->update(elapsed);
 }
 
-void GameEngine::draw()
+void GameEngine::draw(sf::Time elapsed)
 {
 	// let the state draw the screen
-	m_states.top()->draw();
+	m_states.top()->draw(elapsed);
 }

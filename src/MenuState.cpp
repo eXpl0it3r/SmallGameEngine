@@ -23,7 +23,7 @@ void MenuState::resume()
 	std::cout << "MenuState Resume" << std::endl;
 }
 
-void MenuState::update()
+void MenuState::update(sf::Time elapsed)
 {
 	sf::Event event;
 
@@ -47,7 +47,7 @@ void MenuState::update()
 	}
 }
 
-void MenuState::draw()
+void MenuState::draw(sf::Time elapsed)
 {
 	// Clear the previous drawing
 	m_game.screen.clear();

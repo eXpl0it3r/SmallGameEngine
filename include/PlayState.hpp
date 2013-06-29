@@ -14,8 +14,8 @@ public:
 	void pause();
 	void resume();
 
-	void update();
-	void draw();
+	void update(sf::Time elapsed);
+	void draw(sf::Time elapsed);
 
 private:
 	sf::Texture m_bgTex;

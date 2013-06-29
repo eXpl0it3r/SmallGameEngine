@@ -30,7 +30,7 @@ void IntroState::resume()
 	std::cout << "IntroState Resume" << std::endl;
 }
 
-void IntroState::update()
+void IntroState::update(sf::Time elapsed)
 {
     sf::Event event;
 
@@ -65,7 +65,7 @@ void IntroState::update()
 	m_fader.setFillColor( m_alpha );
 }
 
-void IntroState::draw()
+void IntroState::draw(sf::Time elapsed)
 {
 	// Clear the previous drawing
 	m_game.screen.clear();

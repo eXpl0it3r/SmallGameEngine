@@ -12,8 +12,8 @@ public:
 	virtual void pause() = 0;
 	virtual void resume() = 0;
 
-	virtual void update() = 0;
-	virtual void draw() = 0;
+	virtual void update(sf::Time elapsed) = 0;
+	virtual void draw(sf::Time elapsed) = 0;
 
 	std::unique_ptr<GameState> next()
 	{

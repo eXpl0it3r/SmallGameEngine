@@ -19,8 +19,8 @@ public:
 	void nextState();
 	void lastState();
 
-	void update();
-	void draw();
+	void update(sf::Time elapsed);
+	void draw(sf::Time elapsed);
 
 	bool running() { return m_running; }
 	void quit() { m_running = false; }

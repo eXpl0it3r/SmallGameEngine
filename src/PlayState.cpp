@@ -24,7 +24,7 @@ void PlayState::resume()
 	std::cout << "PlayState Resume" << std::endl;
 }
 
-void PlayState::update()
+void PlayState::update(sf::Time elapsed)
 {
 	sf::Event event;
 
@@ -51,7 +51,7 @@ void PlayState::update()
 	}
 }
 
-void PlayState::draw()
+void PlayState::draw(sf::Time elapsed)
 {
 	// Clear the previous drawing
 	m_game.screen.clear();

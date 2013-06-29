@@ -14,8 +14,8 @@ public:
 	void pause();
 	void resume();
 
-	void update((sf::Time elapsed);
-	void draw((sf::Time elapsed);
+	void update(sf::Time elapsed);
+	void draw(sf::Time elapsed);
 
 private:
 

@@ -1,8 +1,9 @@
 #ifndef PLAYSTATE_HPP
 #define PLAYSTATE_HPP
 
-#include <SFML/Graphics.hpp>
 #include "GameState.hpp"
+
+#include <SFML/Graphics.hpp>
 
 class GameEngine;
 

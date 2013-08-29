@@ -3,7 +3,7 @@
 
 #include <memory>
 
-#include "GameEngine.hpp"
+class GameEngine;
 
 class GameState
 {

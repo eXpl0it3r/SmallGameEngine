@@ -1,9 +1,9 @@
 #include <memory>
 #include <iostream>
 
+#include "GameEngine.hpp"
 #include "IntroState.hpp"
 #include "PlayState.hpp"
-#include "GameEngine.hpp"
 
 IntroState::IntroState( GameEngine& game, bool replace ) : GameState( game, replace )
 {

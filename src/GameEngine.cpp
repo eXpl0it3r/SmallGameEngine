@@ -1,12 +1,9 @@
 #include "GameEngine.hpp"
 
-#include <memory>
-#include <iostream>
 #include "GameState.hpp"
 
-#include "IntroState.hpp"
-#include "MenuState.hpp"
-#include "GameState.hpp"
+#include <memory>
+#include <iostream>
 
 GameEngine::GameEngine( const std::string& title, const unsigned int width, const unsigned int height, const unsigned int bpp, const bool fullscreen ) :
     m_resume( false ),

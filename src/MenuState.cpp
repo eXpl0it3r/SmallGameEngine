@@ -1,8 +1,8 @@
 #include <memory>
 #include <iostream>
 
-#include "MenuState.hpp"
 #include "GameEngine.hpp"
+#include "MenuState.hpp"
 
 MenuState::MenuState( GameEngine& game, bool replace ) : GameState( game, replace )
 {

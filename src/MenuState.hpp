@@ -1,8 +1,9 @@
 #ifndef MENUSTATE_HPP
 #define MENUSTATE_HPP
 
-#include <SFML/Graphics.hpp>
 #include "GameState.hpp"
+
+#include <SFML/Graphics.hpp>
 
 class GameEngine;
 

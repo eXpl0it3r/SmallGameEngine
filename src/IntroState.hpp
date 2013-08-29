@@ -1,8 +1,9 @@
 #ifndef INTROSTATE_HPP
 #define INTROSTATE_HPP
 
-#include <SFML/Graphics.hpp>
 #include "GameState.hpp"
+
+#include <SFML/Graphics.hpp>
 
 class GameEngine;
 

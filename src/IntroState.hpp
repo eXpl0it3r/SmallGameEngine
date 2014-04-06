@@ -3,14 +3,22 @@
 
 #include "GameState.hpp"
 
-#include <SFML/Graphics.hpp>
+#include <SFML/Graphics/Color.hpp>
+#include <SFML/Graphics/RectangleShape.hpp>
+#include <SFML/Graphics/Sprite.hpp>
+#include <SFML/Graphics/Texture.hpp>
 
-class GameEngine;
+class StateMachine;
+
+namespace sf
+{
+	class RenderWindow;
+}
 
 class IntroState : public GameState
 {
 public:
-	IntroState( GameEngine& game, bool replace = true );
+	IntroState( StateMachine& game, sf::RenderWindow& window, bool replace = true );
 
 	void pause();
 	void resume();

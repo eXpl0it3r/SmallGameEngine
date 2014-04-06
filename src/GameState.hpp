@@ -3,31 +3,35 @@
 
 #include <memory>
 
-class GameEngine;
+class StateMachine;
+
+namespace sf
+{
+	class RenderWindow;
+}
 
 class GameState
 {
 public:
-	GameState( GameEngine& game, bool replace = true ) : m_game( game ), m_replacing( replace ) {}
+	GameState( StateMachine& machine, sf::RenderWindow& window, bool replace = true );
+	virtual ~GameState();
+
 	virtual void pause() = 0;
 	virtual void resume() = 0;
 
 	virtual void update() = 0;
 	virtual void draw() = 0;
 
-	std::unique_ptr<GameState> next()
-	{
-		return std::move( m_next );
-	}
+	std::unique_ptr<GameState> next();
 
-	bool isReplacing()
-	{
-		return m_replacing;
-	}
+	bool isReplacing();
 
 protected:
-    GameEngine& m_game;
+    StateMachine& m_machine;
+    sf::RenderWindow& m_window;
+
 	bool m_replacing;
+
 	std::unique_ptr<GameState> m_next;
 };
 

@@ -1,10 +1,14 @@
+#include "StateMachine.hpp"
+#include "MenuState.hpp"
+
+#include <SFML/Graphics/RenderWindow.hpp>
+#include <SFML/Window/Event.hpp>
+
 #include <memory>
 #include <iostream>
 
-#include "GameEngine.hpp"
-#include "MenuState.hpp"
-
-MenuState::MenuState( GameEngine& game, bool replace ) : GameState( game, replace )
+MenuState::MenuState( StateMachine& machine, sf::RenderWindow& window, bool replace )
+: GameState( machine, window, replace )
 {
 	m_bgTex.loadFromFile( "img/menu.png" );
 
@@ -27,21 +31,27 @@ void MenuState::update()
 {
 	sf::Event event;
 
-	while( m_game.screen.pollEvent( event ) )
+	while( m_window.pollEvent( event ) )
 	{
 		switch( event.type )
 		{
 			case sf::Event::Closed:
-				m_game.quit();
+				m_machine.quit();
 				break;
 
 			case sf::Event::KeyPressed:
 				switch( event.key.code )
 				{
 					case sf::Keyboard::Escape:
-						m_game.lastState();
+						m_machine.lastState();
+						break;
+
+					default:
 						break;
 				}
+				break;
+
+			default:
 				break;
 		}
 	}
@@ -50,8 +60,7 @@ void MenuState::update()
 void MenuState::draw()
 {
 	// Clear the previous drawing
-	m_game.screen.clear();
-	m_game.screen.draw( m_bg );
-	m_game.screen.display();
+	m_window.clear();
+	m_window.draw( m_bg );
+	m_window.display();
 }
-

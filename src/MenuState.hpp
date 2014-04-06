@@ -3,14 +3,20 @@
 
 #include "GameState.hpp"
 
-#include <SFML/Graphics.hpp>
+#include <SFML/Graphics/Sprite.hpp>
+#include <SFML/Graphics/Texture.hpp>
 
-class GameEngine;
+class StateMachine;
+
+namespace sf
+{
+	class RenderWindow;
+}
 
 class MenuState : public GameState
 {
 public:
-	MenuState( GameEngine& game, bool replace = true );
+	MenuState( StateMachine& machine, sf::RenderWindow& window, bool replace = true );
 
 	void pause();
 	void resume();
@@ -19,7 +25,6 @@ public:
 	void draw();
 
 private:
-
 	sf::Texture m_bgTex;
 	sf::Sprite m_bg;
 };

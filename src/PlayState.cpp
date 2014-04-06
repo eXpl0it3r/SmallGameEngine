@@ -1,11 +1,15 @@
 #include <memory>
 #include <iostream>
 
-#include "GameEngine.hpp"
+#include "StateMachine.hpp"
 #include "PlayState.hpp"
 #include "MenuState.hpp"
 
-PlayState::PlayState( GameEngine& game, bool replace ) : GameState( game, replace )
+#include <SFML/Graphics/RenderWindow.hpp>
+#include <SFML/Window/Event.hpp>
+
+PlayState::PlayState( StateMachine& machine, sf::RenderWindow& window, bool replace )
+: GameState( machine, window, replace )
 {
 	m_bgTex.loadFromFile( "img/play.png" );
 
@@ -28,24 +32,31 @@ void PlayState::update()
 {
 	sf::Event event;
 
-	while( m_game.screen.pollEvent( event ) )
+	while( m_window.pollEvent( event ) )
 	{
 		switch( event.type )
 		{
 			case sf::Event::Closed:
-				m_game.quit();
+				m_machine.quit();
 				break;
 
 			case sf::Event::KeyPressed:
 				switch( event.key.code )
 				{
 					case sf::Keyboard::Escape:
-						m_game.quit();
+						m_machine.quit();
 						break;
+
 					case sf::Keyboard::M:
-						m_next = m_game.build<MenuState>( false );
+						m_next = StateMachine::build<MenuState>( m_machine, m_window, false );
+						break;
+
+					default:
 						break;
 				}
+				break;
+
+			default:
 				break;
 		}
 	}
@@ -54,8 +65,7 @@ void PlayState::update()
 void PlayState::draw()
 {
 	// Clear the previous drawing
-	m_game.screen.clear();
-	m_game.screen.draw( m_bg );
-	m_game.screen.display();
+	m_window.clear();
+	m_window.draw( m_bg );
+	m_window.display();
 }
-

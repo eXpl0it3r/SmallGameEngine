@@ -1,19 +1,23 @@
-#include <memory>
-#include <iostream>
-
-#include "GameEngine.hpp"
 #include "IntroState.hpp"
 #include "PlayState.hpp"
+#include "StateMachine.hpp"
 
-IntroState::IntroState( GameEngine& game, bool replace ) : GameState( game, replace )
+#include <SFML/Graphics/RenderWindow.hpp>
+#include <SFML/Window/Event.hpp>
+
+#include <iostream>
+#include <memory>
+
+IntroState::IntroState( StateMachine& machine, sf::RenderWindow& window, bool replace )
+: GameState( machine, window, replace )
 {
 	m_bgTex.loadFromFile( "img/intro.png" );
 	m_bg.setTexture( m_bgTex, true );
 
-	// start off opaque
+	// Start off opaque
 	m_alpha = sf::Color( 0, 0, 0, 255 );
 
-	// fill the fader surface with black
+	// Fill the fader surface with black
 	m_fader.setFillColor( m_alpha );
 	m_fader.setSize( static_cast<sf::Vector2f>( m_bgTex.getSize() ) );
 
@@ -34,12 +38,12 @@ void IntroState::update()
 {
     sf::Event event;
 
-	while( m_game.screen.pollEvent( event ) )
+	while( m_window.pollEvent( event ) )
 	{
 		switch( event.type )
 		{
             case sf::Event::Closed:
-                m_game.quit();
+                m_machine.quit();
                 break;
 
             case sf::Event::KeyPressed:
@@ -47,15 +51,21 @@ void IntroState::update()
                 switch( event.key.code )
                 {
                     case sf::Keyboard::Space:
-                        m_next = m_game.build<PlayState>( true );
+                        m_next = StateMachine::build<PlayState>( m_machine, m_window, true );
                         break;
 
                     case sf::Keyboard::Escape:
-                        m_game.quit();
+                        m_machine.quit();
                         break;
+
+					default:
+						break;
                 }
                 break;
             }
+
+			default:
+				break;
 		}
 	}
 
@@ -68,14 +78,13 @@ void IntroState::update()
 void IntroState::draw()
 {
 	// Clear the previous drawing
-	m_game.screen.clear();
+	m_window.clear();
 
-	m_game.screen.draw( m_bg );
+	m_window.draw( m_bg );
 
-	// no need to draw if it's transparent
+	// No need to draw if it's transparent
 	if( m_alpha.a != 0 )
-		m_game.screen.draw( m_fader );
+		m_window.draw( m_fader );
 
-	m_game.screen.display();
+	m_window.display();
 }
-

@@ -1,7 +1,7 @@
 #ifndef INTROSTATE_HPP
 #define INTROSTATE_HPP
 
-#include "GameState.hpp"
+#include "State.hpp"
 
 #include <SFML/Graphics/Color.hpp>
 #include <SFML/Graphics/RectangleShape.hpp>
@@ -15,7 +15,7 @@ namespace sf
 	class RenderWindow;
 }
 
-class IntroState : public GameState
+class IntroState : public State
 {
 public:
 	IntroState( StateMachine& game, sf::RenderWindow& window, bool replace = true );

@@ -1,5 +1,5 @@
-#ifndef GAMESTATE_HPP
-#define GAMESTATE_HPP
+#ifndef STATE_HPP
+#define STATE_HPP
 
 #include <memory>
 
@@ -10,11 +10,11 @@ namespace sf
 	class RenderWindow;
 }
 
-class GameState
+class State
 {
 public:
-	GameState( StateMachine& machine, sf::RenderWindow& window, bool replace = true );
-	virtual ~GameState();
+	State( StateMachine& machine, sf::RenderWindow& window, bool replace = true );
+	virtual ~State();
 
 	virtual void pause() = 0;
 	virtual void resume() = 0;
@@ -22,7 +22,7 @@ public:
 	virtual void update() = 0;
 	virtual void draw() = 0;
 
-	std::unique_ptr<GameState> next();
+	std::unique_ptr<State> next();
 
 	bool isReplacing();
 
@@ -32,7 +32,7 @@ protected:
 
 	bool m_replacing;
 
-	std::unique_ptr<GameState> m_next;
+	std::unique_ptr<State> m_next;
 };
 
-#endif // GAMESTATE_HPP
+#endif // STATE_HPP

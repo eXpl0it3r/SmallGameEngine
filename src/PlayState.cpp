@@ -9,7 +9,7 @@
 #include <SFML/Window/Event.hpp>
 
 PlayState::PlayState( StateMachine& machine, sf::RenderWindow& window, bool replace )
-: GameState( machine, window, replace )
+: State( machine, window, replace )
 {
 	m_bgTex.loadFromFile( "img/play.png" );
 

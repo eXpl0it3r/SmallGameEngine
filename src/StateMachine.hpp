@@ -5,7 +5,7 @@
 #include <stack>
 #include <string>
 
-class GameState;
+class State;
 
 namespace sf
 {
@@ -17,7 +17,7 @@ class StateMachine
 public:
 	StateMachine();
 
-	void run( std::unique_ptr<GameState> state );
+	void run( std::unique_ptr<State> state );
 
 	void nextState();
 	void lastState();
@@ -33,7 +33,7 @@ public:
 
 private:
 	// The stack of states
-	std::stack<std::unique_ptr<GameState>> m_states;
+	std::stack<std::unique_ptr<State>> m_states;
 
 	bool m_resume;
 	bool m_running;

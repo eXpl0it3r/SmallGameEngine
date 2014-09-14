@@ -1,7 +1,7 @@
 #ifndef MENUSTATE_HPP
 #define MENUSTATE_HPP
 
-#include "GameState.hpp"
+#include "State.hpp"
 
 #include <SFML/Graphics/Sprite.hpp>
 #include <SFML/Graphics/Texture.hpp>
@@ -13,7 +13,7 @@ namespace sf
 	class RenderWindow;
 }
 
-class MenuState : public GameState
+class MenuState : public State
 {
 public:
 	MenuState( StateMachine& machine, sf::RenderWindow& window, bool replace = true );

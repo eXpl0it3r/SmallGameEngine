@@ -1,7 +1,7 @@
 #ifndef PLAYSTATE_HPP
 #define PLAYSTATE_HPP
 
-#include "GameState.hpp"
+#include "State.hpp"
 
 #include <SFML/Graphics/Sprite.hpp>
 #include <SFML/Graphics/Texture.hpp>
@@ -13,7 +13,7 @@ namespace sf
 	class RenderWindow;
 }
 
-class PlayState : public GameState
+class PlayState : public State
 {
 public:
 	PlayState( StateMachine& machine, sf::RenderWindow& window, bool replace = true );

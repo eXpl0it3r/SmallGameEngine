@@ -9,7 +9,7 @@
 #include <memory>
 
 IntroState::IntroState( StateMachine& machine, sf::RenderWindow& window, bool replace )
-: GameState( machine, window, replace )
+: State( machine, window, replace )
 {
 	m_bgTex.loadFromFile( "img/intro.png" );
 	m_bg.setTexture( m_bgTex, true );

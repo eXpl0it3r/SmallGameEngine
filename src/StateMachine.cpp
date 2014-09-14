@@ -1,5 +1,5 @@
 #include "StateMachine.hpp"
-#include "GameState.hpp"
+#include "State.hpp"
 
 #include <iostream>
 #include <memory>
@@ -11,7 +11,7 @@ StateMachine::StateMachine()
 	std::cout << "StateMachine Init" << std::endl;
 }
 
-void StateMachine::run( std::unique_ptr<GameState> state )
+void StateMachine::run( std::unique_ptr<State> state )
 {
 	m_running = true;
 
@@ -40,7 +40,7 @@ void StateMachine::nextState()
 	// There needs to be a state
 	if ( !m_states.empty() )
 	{
-		std::unique_ptr<GameState> temp = m_states.top()->next();
+		std::unique_ptr<State> temp = m_states.top()->next();
 
 		// Only change states if there's a next one existing
 		if( temp != nullptr )

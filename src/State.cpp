@@ -8,11 +8,6 @@ State::State( StateMachine& machine, sf::RenderWindow &window, bool replace )
 
 }
 
-State::~State()
-{
-
-}
-
 std::unique_ptr<State> State::next()
 {
 	return std::move( m_next );

@@ -14,7 +14,7 @@ class State
 {
 public:
 	State( StateMachine& machine, sf::RenderWindow& window, bool replace = true );
-	virtual ~State();
+	virtual ~State() = default;
 
 	virtual void pause() = 0;
 	virtual void resume() = 0;

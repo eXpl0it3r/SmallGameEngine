@@ -9,13 +9,13 @@
 #include <memory>
 
 IntroState::IntroState( StateMachine& machine, sf::RenderWindow& window, bool replace )
-: State( machine, window, replace )
+: State{ machine, window, replace }
 {
 	m_bgTex.loadFromFile( "img/intro.png" );
 	m_bg.setTexture( m_bgTex, true );
 
 	// Start off opaque
-	m_alpha = sf::Color( 0, 0, 0, 255 );
+	m_alpha = sf::Color{ 0, 0, 0, 255 };
 
 	// Fill the fader surface with black
 	m_fader.setFillColor( m_alpha );

@@ -1,9 +1,9 @@
 #include "State.hpp"
 
 State::State( StateMachine& machine, sf::RenderWindow &window, bool replace )
-: m_machine( machine )
-, m_window( window )
-, m_replacing( replace )
+: m_machine{ machine }
+, m_window{ window }
+, m_replacing{ replace }
 {
 
 }

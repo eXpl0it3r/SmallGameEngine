@@ -5,8 +5,8 @@
 #include <memory>
 
 StateMachine::StateMachine()
-: m_resume( false )
-, m_running( false )
+: m_resume{ false }
+, m_running{ false }
 {
 	std::cout << "StateMachine Init" << std::endl;
 }

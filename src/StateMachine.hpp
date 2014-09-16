@@ -42,7 +42,7 @@ private:
 template <typename T>
 std::unique_ptr<T> StateMachine::build( StateMachine& machine, sf::RenderWindow& window, bool replace )
 {
-	return std::move( std::unique_ptr<T>( new T( machine, window, replace ) ) );
+	return std::unique_ptr<T>( new T( machine, window, replace ) );
 }
 
 #endif // GAMEENGINE_HPP

@@ -21,5 +21,5 @@ void Application::run()
 		m_machine.draw();
 	}
 
-	// Leaving the scope of 'game' will cleanup the engine
+	// Leaving the scope of 'Application' will cleanup the engine
 }

@@ -46,4 +46,4 @@ deploy:
     secure: n5YYrvLk5Ft1l7lPmJtLHeS6CzP9Ug76cpuG57EzDFatUHa376mwi2US3eevImQ9I09KFtcFOFpqSphEvyvtIVhMsGkhm89kJn/inSmBOkmWWasN/m2chDTic0SnfoiwbYozIfqCJ5PIW+nRgwGY65np4GInnixcfaK5giaGBrI=
   file: SmallGameEngine-$TRAVIS_OS_NAME.zip
   on:
-    tags: true
+    branch: master

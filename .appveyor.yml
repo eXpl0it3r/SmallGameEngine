@@ -37,16 +37,16 @@ after_build:
 - cmd: >-
     cd ../../
 
-    7z a SmallGameEngine-Windows.zip C:/projects/smallgameengine/SmallGameEngine/SmallGameEngine -r
+    7z a SmallGameEngine-Windows.zip C:/projects/smallgameengine/SmallGameEngine/SmallGameEngine/ -r
 artifacts:
 - path: SmallGameEngine-Windows.zip
   name: SmallGameEngine-Windows
 deploy:
-  release: SmallGameEngine-Windows
-  description: 'SmallGameEngine Windows Release'
+  release: SmallGameEngine
+  description: 'SmallGameEngine master branch release'
   provider: GitHub
-  artifact: SmallGameEngine-Windows.zip
+  artifact: SmallGameEngine-windows.zip
   auth_token:
-    secure: n5YYrvLk5Ft1l7lPmJtLHeS6CzP9Ug76cpuG57EzDFatUHa376mwi2US3eevImQ9I09KFtcFOFpqSphEvyvtIVhMsGkhm89kJn/inSmBOkmWWasN/m2chDTic0SnfoiwbYozIfqCJ5PIW+nRgwGY65np4GInnixcfaK5giaGBrI=
+    secure: Pf37BCPu6ikFu98Rs0MDhDXzI995HHk0p0J5gPV8iy+3E20Vbdp1G6c9qVruQ0hn
   on:
-    branch: master
+    tags: true

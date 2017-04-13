@@ -34,16 +34,21 @@ install:
 - make install
 - cd ../../
 script:
-- cmake -DCMAKE_INSTALL_PREFIX=./SmallGameEngine -DSFML_ROOT=./SFML/install -DCMAKE_MODULE_PATH=./SFML/cmake/Modules .
+- mkdir install/
+- mkdir install/SmallGameEngine
+- cmake -DCMAKE_INSTALL_PREFIX=./install/SmallGameEngine -DSFML_ROOT=./SFML/install -DCMAKE_MODULE_PATH=./SFML/cmake/Modules .
 - make
+- make install
 before_deploy:
-  - zip SmallGameEngine-$TRAVIS_OS_NAME ./SmallGameEngine -r
+  - zip SmallGameEngine-$TRAVIS_OS_NAME ./install/SmallGameEngine/ -r
   - ls # To check the zip file is created correctly
 deploy:
+  release: SmallGameEngine
+  description: 'SmallGameEngine master branch release'
   skip_cleanup: true
   provider: releases
   api_key:
     secure: n5YYrvLk5Ft1l7lPmJtLHeS6CzP9Ug76cpuG57EzDFatUHa376mwi2US3eevImQ9I09KFtcFOFpqSphEvyvtIVhMsGkhm89kJn/inSmBOkmWWasN/m2chDTic0SnfoiwbYozIfqCJ5PIW+nRgwGY65np4GInnixcfaK5giaGBrI=
   file: SmallGameEngine-$TRAVIS_OS_NAME.zip
   on:
-    branch: master
+    tags: true

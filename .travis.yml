@@ -2,14 +2,10 @@ notifications:
   email: false
 language:
 - cpp
-os:
-- linux
-- osx
 addons:
   apt:
-    sources:
-    - ubuntu-toolchain-r-test
     packages:
+    - libgl1-mesa-dev
     - libopenal-dev
     - libjpeg-dev
     - libudev-dev
@@ -17,14 +13,31 @@ addons:
     - libfreetype6-dev
     - libvorbis-dev
     - libflac-dev
-    - gcc-5
-    - g++-5
+  homebrew:
+    packages:
+     - cmake
+    update: true
+matrix:
+  include:
+  - name: "Ubuntu Bionic 18.04 GCC"
+    os: linux
+    dist: bionic
+    compiler: gcc
+  - name: "Ubuntu Bionic 18.04 Clang"
+    os: linux
+    dist: bionic
+    compiler: clang
+  - name: "macOS 10.14 GCC"
+    os: osx
+    osx_image: xcode11.3
+    compiler: gcc
+  - name: "macOS 10.14 Clang"
+    os: osx
+    osx_image: xcode11.3
+    compiler: clang
 install:
-- if [ "$TRAVIS_OS_NAME" == "linux" ]; then export CXX="g++-5"; fi
 - git clone https://github.com/SFML/SFML.git
 - cd SFML
-- curl https://gitlab.peach-bun.com/pinion/SFML/commit/3383b4a472f0bd16a8161fb8760cd3e6333f1782.patch
-  | patch -p1
 - mkdir install
 - mkdir build
 - cd build
@@ -36,7 +49,7 @@ install:
 script:
 - mkdir install/
 - mkdir install/SmallGameEngine
-- cmake -DCMAKE_INSTALL_PREFIX=./install/SmallGameEngine -DSFML_ROOT=./SFML/install -DCMAKE_MODULE_PATH=./SFML/cmake/Modules .
+- cmake -DCMAKE_INSTALL_PREFIX=./install/SmallGameEngine -DSFML_DIR=./SFML/install/lib/cmake/SFML .
 - make
 - make install
 before_deploy:

@@ -1,5 +1,7 @@
+image:
+  - Visual Studio 2019
 configuration:
-- Release
+  - Release
 before_build:
 - cmd: >-
     git clone https://github.com/SFML/SFML.git
@@ -12,15 +14,13 @@ before_build:
 
     cd build
 
-    cmake -DCMAKE_INSTALL_PREFIX=../install -DBUILD_SHARED_LIBS=FALSE -DSFML_USE_STATIC_STD_LIBS=TRUE ..
+    cmake -G"Visual Studio 16 2019" -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=../install -DBUILD_SHARED_LIBS=FALSE -DSFML_USE_STATIC_STD_LIBS=TRUE ..
 
-    msbuild INSTALL.vcxproj
+    cmake --build . --config Release --target install
 
     cd ../../
 
-    git clone https://github.com/eXpl0it3r/SmallGameEngine.git
-
-    cd SmallGameEngine
+    dir
 
     mkdir SmallGameEngine
 
@@ -28,16 +28,16 @@ before_build:
 
     cd build
 
-    cmake -DCMAKE_INSTALL_PREFIX=../SmallGameEngine -DSMALLGAMEENGINE_STATIC_STD_LIBS=TRUE -DSFML_STATIC_LIBS=TRUE -DCMAKE_MODULE_PATH=C:/projects/smallgameengine/SFML/install/cmake/Modules -DSFML_ROOT=C:/projects/smallgameengine/SFML/install ..
+    cmake -G"Visual Studio 16 2019" -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=../SmallGameEngine -DSMALLGAMEENGINE_STATIC_STD_LIBS=TRUE -DSFML_STATIC_LIBRARIES=TRUE -DSFML_DIR=C:/projects/smallgameengine/SFML/install/lib/cmake/SFML ..
 build:
-  project: SmallGameEngine/build/INSTALL.vcxproj
+  project: build/INSTALL.vcxproj
   parallel: true
   verbosity: minimal
 after_build:
 - cmd: >-
     cd ../../
 
-    7z a SmallGameEngine-Windows.zip C:/projects/smallgameengine/SmallGameEngine/SmallGameEngine/ -r
+    7z a SmallGameEngine-Windows.zip C:/projects/smallgameengine/SmallGameEngine/ -r
 artifacts:
 - path: SmallGameEngine-Windows.zip
   name: SmallGameEngine-Windows

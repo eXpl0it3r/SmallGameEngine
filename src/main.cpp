@@ -2,6 +2,6 @@
 
 int main()
 {
-	Application app;
+	auto app = Application{};
 	app.run();
 }

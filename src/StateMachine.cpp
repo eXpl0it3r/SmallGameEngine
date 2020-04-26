@@ -2,34 +2,33 @@
 #include "State.hpp"
 
 #include <iostream>
-#include <memory>
 
 StateMachine::StateMachine()
 : m_resume{ false }
 , m_running{ false }
 {
-	std::cout << "StateMachine Init" << std::endl;
+	std::cout << "StateMachine Init\n";
 }
 
-void StateMachine::run( std::unique_ptr<State> state )
+void StateMachine::run(std::unique_ptr<State> state)
 {
 	m_running = true;
 
-	m_states.push( std::move( state ) );
+	m_states.push(std::move(state));
 }
 
 void StateMachine::nextState()
 {
-    if(m_resume)
+    if (m_resume)
     {
         // Cleanup the current state
-        if ( !m_states.empty() )
+        if (!m_states.empty())
         {
             m_states.pop();
         }
 
         // Resume previous state
-        if ( !m_states.empty() )
+        if (!m_states.empty())
         {
             m_states.top()->resume();
         }
@@ -38,21 +37,25 @@ void StateMachine::nextState()
     }
 
 	// There needs to be a state
-	if ( !m_states.empty() )
+	if (!m_states.empty())
 	{
-		std::unique_ptr<State> temp = m_states.top()->next();
+		auto temp = m_states.top()->next();
 
 		// Only change states if there's a next one existing
-		if( temp != nullptr )
+		if (temp != nullptr)
 		{
 			// Replace the running state
-			if( temp->isReplacing() )
+			if (temp->isReplacing())
+			{
 				m_states.pop();
+			}
 			// Pause the running state
 			else
+			{
 				m_states.top()->pause();
+			}
 
-			m_states.push( std::move( temp ) );
+			m_states.push(std::move(temp));
 		}
 	}
 }
@@ -72,4 +75,14 @@ void StateMachine::draw()
 {
 	// Let the state draw the screen
 	m_states.top()->draw();
+}
+
+bool StateMachine::running() const
+{
+	return m_running;
+}
+
+void StateMachine::quit()
+{
+	m_running = false;
 }

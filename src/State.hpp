@@ -1,5 +1,4 @@
-#ifndef STATE_HPP
-#define STATE_HPP
+#pragma once
 
 #include <memory>
 
@@ -13,11 +12,11 @@ namespace sf
 class State
 {
 public:
-	State( StateMachine& machine, sf::RenderWindow& window, bool replace = true );
+	State(StateMachine& machine, sf::RenderWindow& window, bool replace = true);
 	virtual ~State() = default;
 
-	State ( const State& ) = delete;
-	State& operator= ( const State& ) = delete;
+	State(const State&) = delete;
+	State& operator=(const State&) = delete;
 
 	virtual void pause() = 0;
 	virtual void resume() = 0;
@@ -27,7 +26,7 @@ public:
 
 	std::unique_ptr<State> next();
 
-	bool isReplacing();
+	bool isReplacing() const;
 
 protected:
     StateMachine& m_machine;
@@ -37,5 +36,3 @@ protected:
 
 	std::unique_ptr<State> m_next;
 };
-
-#endif // STATE_HPP

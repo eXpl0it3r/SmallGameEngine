@@ -1,5 +1,4 @@
-#ifndef PLAYSTATE_HPP
-#define PLAYSTATE_HPP
+#pragma once
 
 #include "State.hpp"
 
@@ -13,20 +12,18 @@ namespace sf
 	class RenderWindow;
 }
 
-class PlayState : public State
+class PlayState final : public State
 {
 public:
-	PlayState( StateMachine& machine, sf::RenderWindow& window, bool replace = true );
+	PlayState(StateMachine& machine, sf::RenderWindow& window, bool replace = true);
 
-	void pause();
-	void resume();
+	void pause() override;
+	void resume() override;
 
-	void update();
-	void draw();
+	void update() override;
+	void draw() override;
 
 private:
 	sf::Texture m_bgTex;
 	sf::Sprite m_bg;
 };
-
-#endif // PLAYSTATE_HPP

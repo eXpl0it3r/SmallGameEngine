@@ -1,5 +1,4 @@
-#ifndef INTROSTATE_HPP
-#define INTROSTATE_HPP
+#pragma once
 
 #include "State.hpp"
 
@@ -15,16 +14,16 @@ namespace sf
 	class RenderWindow;
 }
 
-class IntroState : public State
+class IntroState final : public State
 {
 public:
-	IntroState( StateMachine& game, sf::RenderWindow& window, bool replace = true );
+	IntroState(StateMachine& machine, sf::RenderWindow& window, bool replace = true);
 
-	void pause();
-	void resume();
+	void pause() override;
+	void resume() override;
 
-	void update();
-	void draw();
+	void update() override;
+	void draw() override;
 
 private:
 	sf::Texture m_bgTex;
@@ -32,5 +31,3 @@ private:
 	sf::RectangleShape m_fader;
 	sf::Color m_alpha;
 };
-
-#endif // INTROSTATE_HPP

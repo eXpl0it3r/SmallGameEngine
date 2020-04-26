@@ -1,5 +1,4 @@
-#ifndef MENUSTATE_HPP
-#define MENUSTATE_HPP
+#pragma once
 
 #include "State.hpp"
 
@@ -13,20 +12,18 @@ namespace sf
 	class RenderWindow;
 }
 
-class MenuState : public State
+class MenuState final : public State
 {
 public:
-	MenuState( StateMachine& machine, sf::RenderWindow& window, bool replace = true );
+	MenuState(StateMachine& machine, sf::RenderWindow& window, bool replace = true);
 
-	void pause();
-	void resume();
+	void pause() override;
+	void resume() override;
 
-	void update();
-	void draw();
+	void update() override;
+	void draw() override;
 
 private:
 	sf::Texture m_bgTex;
 	sf::Sprite m_bg;
 };
-
-#endif // MENUSTATE_HPP

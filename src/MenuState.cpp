@@ -4,43 +4,40 @@
 #include <SFML/Graphics/RenderWindow.hpp>
 #include <SFML/Window/Event.hpp>
 
-#include <memory>
 #include <iostream>
 
-MenuState::MenuState( StateMachine& machine, sf::RenderWindow& window, bool replace )
+MenuState::MenuState(StateMachine& machine, sf::RenderWindow& window, const bool replace)
 : State{ machine, window, replace }
 {
-	m_bgTex.loadFromFile( "img/menu.png" );
+	m_bgTex.loadFromFile("img/menu.png");
 
-	m_bg.setTexture( m_bgTex, true );
+	m_bg.setTexture(m_bgTex, true);
 
-	std::cout << "MenuState Init" << std::endl;
+	std::cout << "MenuState Init\n";
 }
 
 void MenuState::pause()
 {
-	std::cout << "MenuState Pause" << std::endl;
+	std::cout << "MenuState Pause\n";
 }
 
 void MenuState::resume()
 {
-	std::cout << "MenuState Resume" << std::endl;
+	std::cout << "MenuState Resume\n";
 }
 
 void MenuState::update()
 {
-	sf::Event event;
-
-	while( m_window.pollEvent( event ) )
+	for (auto event = sf::Event{}; m_window.pollEvent(event);)
 	{
-		switch( event.type )
+		switch (event.type)
 		{
 			case sf::Event::Closed:
 				m_machine.quit();
 				break;
 
 			case sf::Event::KeyPressed:
-				switch( event.key.code )
+				switch (event.key.code)
 				{
 					case sf::Keyboard::Escape:
 						m_machine.lastState();
@@ -61,6 +58,6 @@ void MenuState::draw()
 {
 	// Clear the previous drawing
 	m_window.clear();
-	m_window.draw( m_bg );
+	m_window.draw(m_bg);
 	m_window.display();
 }

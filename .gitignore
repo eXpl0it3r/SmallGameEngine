@@ -21,7 +21,16 @@ ipch/
 *.exe
 *.ilk
 *.pdb
+CMakeSettings.json
 
-#OS junk files
+# Visual Studio Code
+.vs/
+
+# Code::Blocks
+*.cbp
+*.depend
+*.layout
+
+# OS junk files
 [Tt]humbs.db
 *.DS_Store

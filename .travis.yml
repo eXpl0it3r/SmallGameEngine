@@ -35,23 +35,23 @@ matrix:
     os: osx
     osx_image: xcode11.3
     compiler: clang
+  - name: "Windows GCC"
+    os: windows
+    compiler: gcc
 install:
 - git clone https://github.com/SFML/SFML.git
 - cd SFML
 - mkdir install
 - mkdir build
 - cd build
-- cmake -DCMAKE_INSTALL_PREFIX=../install -DCMAKE_INSTALL_FRAMEWORK_PREFIX=../install
-  -DSFML_BUILD_FRAMEWORKS=FALSE -DBUILD_SHARED_LIBS=TRUE ..
-- make
-- make install
+- cmake -DCMAKE_INSTALL_PREFIX=../install -DCMAKE_INSTALL_FRAMEWORK_PREFIX=../install -DSFML_BUILD_FRAMEWORKS=FALSE -DBUILD_SHARED_LIBS=TRUE ..
+- cmake --build . --config Release --target install
 - cd ../../
 script:
 - mkdir install/
 - mkdir install/SmallGameEngine
 - cmake -DCMAKE_INSTALL_PREFIX=./install/SmallGameEngine -DSFML_DIR=./SFML/install/lib/cmake/SFML .
-- make
-- make install
+- cmake --build . --config Release --target install
 before_deploy:
   - zip SmallGameEngine-$TRAVIS_OS_NAME ./install/SmallGameEngine/ -r
   - ls # To check the zip file is created correctly

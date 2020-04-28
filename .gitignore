@@ -2,6 +2,8 @@
 [Xx]64/
 [Dd]ebug*/
 [Rr]elease*/
+out/
+build/
 ipch/
 *.ipch
 *.obj
@@ -21,6 +23,9 @@ ipch/
 *.exe
 *.ilk
 *.pdb
+*.dll
+*.lib
+*.exe
 CMakeSettings.json
 
 # Visual Studio Code

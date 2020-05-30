@@ -1,4 +1,4 @@
-# PubBus Licenses
+# SmallGameEngine Licenses
 
 *This software is available under 2 licenses -- choose whichever you prefer.*
 

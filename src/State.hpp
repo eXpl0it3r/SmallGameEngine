@@ -26,7 +26,7 @@ public:
 
 	std::unique_ptr<State> next();
 
-	bool isReplacing() const;
+	[[nodiscard]] bool isReplacing() const;
 
 protected:
     StateMachine& m_machine;

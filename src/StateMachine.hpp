@@ -23,7 +23,7 @@ public:
 	void update();
 	void draw();
 
-	bool running() const;
+	[[nodiscard]] bool running() const;
 	void quit();
 
 	template <typename T>

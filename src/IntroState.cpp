@@ -12,12 +12,16 @@ IntroState::IntroState(StateMachine& machine, sf::RenderWindow& window, const bo
 : State{ machine, window, replace }
 , m_alpha{ 0, 0, 0, 255 } // Start off opaque
 {
-	m_bgTex.loadFromFile("img/intro.png");
-	m_bg.setTexture(m_bgTex, true);
+	if (!m_backgroundTexture.loadFromFile("img/intro.png"))
+	{
+		throw std::runtime_error{ "Was unable to load image 'img/intro.png'" };
+	}
+
+	m_background.setTexture(m_backgroundTexture, true);
 
 	// Fill the fader surface with black
 	m_fader.setFillColor(m_alpha);
-	m_fader.setSize(static_cast<sf::Vector2f>(m_bgTex.getSize()));
+	m_fader.setSize(static_cast<sf::Vector2f>(m_backgroundTexture.getSize()));
 
 	std::cout << "IntroState Init\n";
 }
@@ -78,7 +82,7 @@ void IntroState::draw()
 	// Clear the previous drawing
 	m_window.clear();
 
-	m_window.draw(m_bg);
+	m_window.draw(m_background);
 
 	// No need to draw if it's transparent
 	if (m_alpha.a != 0)

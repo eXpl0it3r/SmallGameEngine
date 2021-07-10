@@ -9,9 +9,12 @@
 MenuState::MenuState(StateMachine& machine, sf::RenderWindow& window, const bool replace)
 : State{ machine, window, replace }
 {
-	m_bgTex.loadFromFile("img/menu.png");
+	if (!m_backgroundTexture.loadFromFile("img/menu.png"))
+	{
+		throw std::runtime_error{ "Was unable to load image 'img/menu.png'" };
+	}
 
-	m_bg.setTexture(m_bgTex, true);
+	m_background.setTexture(m_backgroundTexture, true);
 
 	std::cout << "MenuState Init\n";
 }
@@ -58,6 +61,6 @@ void MenuState::draw()
 {
 	// Clear the previous drawing
 	m_window.clear();
-	m_window.draw(m_bg);
+	m_window.draw(m_background);
 	m_window.display();
 }

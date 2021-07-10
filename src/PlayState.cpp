@@ -1,5 +1,6 @@
-#include <memory>
 #include <iostream>
+#include <memory>
+#include <stdexcept>
 
 #include "StateMachine.hpp"
 #include "PlayState.hpp"
@@ -11,9 +12,12 @@
 PlayState::PlayState(StateMachine& machine, sf::RenderWindow& window, const bool replace)
 : State{ machine, window, replace }
 {
-	m_bgTex.loadFromFile("img/play.png");
+	if (!m_backgroundTexture.loadFromFile("img/play.png"))
+	{
+		throw std::runtime_error{ "Was unable to load image 'img/play.png'" };
+	}
 
-	m_bg.setTexture(m_bgTex, true);
+	m_background.setTexture(m_backgroundTexture, true);
 
 	std::cout << "PlayState Init\n";
 }
@@ -64,6 +68,6 @@ void PlayState::draw()
 {
 	// Clear the previous drawing
 	m_window.clear();
-	m_window.draw(m_bg);
+	m_window.draw(m_background);
 	m_window.display();
 }

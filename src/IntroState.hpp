@@ -26,8 +26,8 @@ public:
 	void draw() override;
 
 private:
-	sf::Texture m_bgTex;
-	sf::Sprite m_bg;
+	sf::Texture m_backgroundTexture;
+	sf::Sprite m_background;
 	sf::RectangleShape m_fader;
 	sf::Color m_alpha;
 };

@@ -2,8 +2,10 @@
 
 #include "State.hpp"
 
+#include <iostream>
 #include <memory>
 #include <stack>
+#include <stdexcept>
 
 namespace sf
 {
@@ -40,5 +42,17 @@ private:
 template <typename T>
 std::unique_ptr<T> StateMachine::build(StateMachine& machine, sf::RenderWindow& window, bool replace)
 {
-	return std::make_unique<T>(machine, window, replace);
+	auto new_state = std::unique_ptr<T>{ nullptr };
+
+	try
+	{
+		new_state = std::make_unique<T>(machine, window, replace);
+	}
+	catch(std::runtime_error& exception)
+	{
+		std::cout << "Creation of new state was unsuccessful\n";
+		std::cout << exception.what() << std::endl;
+	}
+
+	return new_state;
 }

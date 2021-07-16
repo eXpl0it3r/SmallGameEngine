@@ -3,7 +3,7 @@ cmake_minimum_required(VERSION 3.15)
 project(SmallGameEngine LANGUAGES CXX)
 
 # Set options
-set(SMALLGAMEENGINE_STATIC_STD_LIBS FALSE CACHE BOOL "Use statically linked standard/runtime libraries? This option must match the one used for SFML.")
+option(SMALLGAMEENGINE_STATIC_STD_LIBS "Use statically linked standard/runtime libraries? This option must match the one used for SFML." OFF)
 
 # SmallGameEngine uses C++17 features
 set(CMAKE_CXX_STANDARD 17)
@@ -44,7 +44,7 @@ if(SMALLGAMEENGINE_STATIC_STD_LIBS)
 		set_property(TARGET SmallGameEngine PROPERTY MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>")
 	elseif(CMAKE_COMPILER_IS_GNUCXX)
 		# Note: Doesn't work for TDM compiler, since it's compiling the runtime libs statically by default
-		set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -static")
+		target_compile_options(SmallGameEngine PRIVATE -static)
 	endif()
 endif()
 
